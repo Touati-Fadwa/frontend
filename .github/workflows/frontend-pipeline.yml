@@ -43,7 +43,7 @@ jobs:
             -Dsonar.exclusions=**/*.test.tsx,**/*.test.ts,**/node_modules/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.branch.name=main
-            -Dsonar.analysis.ci=true  # Pour éviter les conflits avec l'analyse automatique
+            -Dsonar.analysis.ci=false  # Pour éviter les conflits avec l'analyse automatique
 
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
