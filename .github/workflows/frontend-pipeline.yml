@@ -38,7 +38,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=Touati-Fadwa_frontend
-            -Dsonar.organization=Touati-Fadwa  # Vérifiez la casse exacte
+            -Dsonar.organization=touati-fadwa  # Vérifiez la casse exacte
             -Dsonar.ci.analysis=true
             -Dsonar.branch.name=main
             -Dsonar.qualitygate.wait=true
