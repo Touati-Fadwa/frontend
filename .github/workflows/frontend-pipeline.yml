@@ -1,4 +1,3 @@
-
 name: Frontend CI/CD Pipeline
 
 on:
@@ -133,3 +132,4 @@ jobs:
           kubectl apply -f kubernetes/frontend-deployment.yml
           kubectl apply -f kubernetes/frontend-service.yml
           minikube service frontend-service --url
+
