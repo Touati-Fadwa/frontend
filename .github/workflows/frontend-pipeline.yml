@@ -31,7 +31,7 @@ jobs:
 
       - name: 📊 SonarQube analysis
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v5.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -43,6 +43,8 @@ jobs:
             -Dsonar.exclusions=**/*.test.tsx,**/*.test.ts,**/node_modules/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.branch.name=main
+            -Dsonar.analysis.ci=true  # Pour éviter les conflits avec l'analyse automatique
+
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
