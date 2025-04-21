@@ -37,7 +37,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=touati-fadwa_frontend
+            -Dsonar.projectKey=Touati-Fadwa_frontend
             -Dsonar.organization=Touati-Fadwa
             -Dsonar.sources=src
             -Dsonar.exclusions=**/*.test.tsx,**/*.test.ts,**/node_modules/**
