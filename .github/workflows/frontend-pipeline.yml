@@ -9,6 +9,7 @@ on:
 jobs:
   ci-cd:
     runs-on: self-hosted
+    
 
     steps:
       - name: 🧾 Checkout repository
