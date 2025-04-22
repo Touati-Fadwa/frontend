@@ -8,7 +8,7 @@ on:
 
 jobs:
   ci-cd:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: 🧾 Checkout repository
