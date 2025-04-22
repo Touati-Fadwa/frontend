@@ -78,8 +78,5 @@ jobs:
       - name: 📦 Vérifier le déploiement frontend
         run: kubectl get deployment frontend-deployment
         
-      - name: 📄 Afficher les logs du pod frontend
-        run: |
-            POD_NAME=$(kubectl get pods --selector=app=frontend -o jsonpath="{.items[0].metadata.name}")
-            kubectl logs $POD_NAME
+      
         
