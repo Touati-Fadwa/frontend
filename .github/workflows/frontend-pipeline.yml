@@ -69,22 +69,17 @@ jobs:
         run: |
           kubectl apply -f kubernetes/frontend-deployment.yml
           kubectl apply -f kubernetes/frontend-service.yml
-      - name: 🔐 Configure KUBECONFIG
-        run: |
-            mkdir -p $HOME/.kube
-            echo "${{ secrets.KUBECONFIG_CONTENT }}" > $HOME/.kube/config
-            chmod 600 $HOME/.kube/config
-  
-      - name: 🧪 Vérifie les pods
+      - name: 🧪 Vérifier les pods
         run: kubectl get pods -o wide
-  
-      - name: 🌐 Vérifie les services
+        
+      - name: 🌐 Vérifier les services
         run: kubectl get svc
-  
-      - name: 📦 Vérifie le déploiement frontend
+        
+      - name: 📦 Vérifier le déploiement frontend
         run: kubectl get deployment frontend-deployment
-  
-      - name: 📄 Affiche les logs du pod frontend
+        
+      - name: 📄 Afficher les logs du pod frontend
         run: |
             POD_NAME=$(kubectl get pods --selector=app=frontend -o jsonpath="{.items[0].metadata.name}")
             kubectl logs $POD_NAME
+        
