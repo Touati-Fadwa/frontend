@@ -44,7 +44,9 @@ jobs:
             -Dsonar.exclusions=**/*.test.tsx,**/*.test.ts,**/node_modules/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.branch.name=main
-
+            
+      - name: Réparer Docker
+        run: sudo chmod 666 /var/run/docker.sock
 
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
