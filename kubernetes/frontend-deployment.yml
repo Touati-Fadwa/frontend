@@ -18,7 +18,7 @@ spec:
       containers:
       - name: frontend
         image: bookworm-frontend:latest
-        imagePullPolicy: Never  # For Minikube, use locally built images
+        imagePullPolicy: Always  # Toujours tirer l'image depuis Docker Hub
         ports:
         - containerPort: 80
         resources:
