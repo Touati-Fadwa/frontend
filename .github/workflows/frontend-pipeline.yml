@@ -45,17 +45,15 @@ jobs:
             #-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             #-Dsonar.branch.name=main
 
-      - name: 🐳 Configurer Docker Buildx
-        uses: docker/setup-buildx-action@v2  # Configuration par défaut
-        with:
-          driver: docker-container
-          install: true
+      - name: 🐳 Configurer Docker Buildx (version simple)
+        uses: docker/setup-buildx-action@v3
+            
       - name: 🔐 Connexion à Docker Hub
         uses: docker/login-action@v3
         with:
               username: ${{ secrets.DOCKERHUB_USERNAME }}
               password: ${{ secrets.DOCKERHUB_TOKEN }}
-    
+        
       - name: 📦 Construire et pousser l'image
         uses: docker/build-push-action@v5
         with:
@@ -63,7 +61,7 @@ jobs:
               push: true
               tags: touatifadwa/bookworm-frontend:latest
               file: Dockerfile.frontend
-      
+              
       # Étape 10-13: Déploiement Kubernetes (inchangé)
       - name: 🚀 Deploy to Minikube
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
