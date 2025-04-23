@@ -8,9 +8,10 @@ on:
 
 jobs:
   ci-cd:
-    runs-on: self-hosted
-
+    runs-on: [self-hosted]
+    
     steps:
+      # Étape 1-6: Build et tests (inchangés)
       - name: 🧾 Checkout repository
         uses: actions/checkout@v4
 
@@ -43,41 +44,35 @@ jobs:
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.branch.name=main
 
-      - name: 🐳 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      # Étape 7-9: Build et push du conteneur avec Buildah
+      - name: 🔐 Login to Docker Hub
+        run: |
+          buildah login -u ${{ secrets.DOCKERHUB_USERNAME }} \
+                       -p ${{ secrets.DOCKERHUB_TOKEN }} \
+                       docker.io
 
-      - name: 🔐 Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: 📦 Build and Push Container
+        run: |
+          buildah bud -f Dockerfile.frontend -t touatifadwa/bookworm-frontend
+          buildah push touatifadwa/bookworm-frontend \
+            docker://touatifadwa/bookworm-frontend:latest
 
-      - name: 📦 Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: touatifadwa/bookworm-frontend:latest
-          file: Dockerfile.frontend
-
+      # Étape 10-13: Déploiement Kubernetes (inchangé)
       - name: 🚀 Deploy to Minikube
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: medyagh/setup-minikube@master
 
-      - name: 📡 Apply K8s frontend manifests
+      - name: 📡 Apply K8s manifests
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           kubectl apply -f kubernetes/frontend-deployment.yml
           kubectl apply -f kubernetes/frontend-service.yml
-      - name: 🧪 Vérifier les pods
+
+      - name: 🧪 Verify pods
         run: kubectl get pods -o wide
         
-      - name: 🌐 Vérifier les services
+      - name: 🌐 Verify services
         run: kubectl get svc
         
-      - name: 📦 Vérifier le déploiement frontend
+      - name: 📦 Verify deployment
         run: kubectl get deployment frontend-deployment
-        
-      
-        
-	
