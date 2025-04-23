@@ -19,7 +19,7 @@ on:
 jobs:
   build-and-test:
     name: Build and Test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
    
     steps:
       - name: Checkout code
@@ -52,7 +52,7 @@ jobs:
   sonarqube-analysis:
     name: SonarQube Analysis
     needs: build-and-test
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
    
     steps:
       - name: Checkout code
@@ -76,7 +76,7 @@ jobs:
   deploy:
     name: Deploy to Minikube
     needs: sonarqube-analysis
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
    
     steps:
