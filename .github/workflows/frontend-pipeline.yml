@@ -65,6 +65,7 @@ jobs:
                   tags: touatifadwa/bookworm-frontend:latest
                   file: Dockerfile.frontend
 
+                  
       # Étape 10-13: Déploiement Kubernetes (inchangé)
       - name: 🚀 Deploy to Minikube
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
