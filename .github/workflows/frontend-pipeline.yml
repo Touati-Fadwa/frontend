@@ -32,7 +32,7 @@ jobs:
 
       # Télécharger l'artifact après la construction (si tu veux conserver les fichiers de build)
       - name: 📦 Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: frontend-build
           path: ./build  # Le dossier de build où tu as généré tes fichiers (ajuste selon ton dossier)
