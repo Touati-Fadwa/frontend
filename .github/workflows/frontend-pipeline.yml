@@ -64,24 +64,8 @@ jobs:
                   push: true
                   tags: touatifadwa/bookworm-frontend:latest
                   file: Dockerfile.frontend
-
-                  
-      # Étape 10-13: Déploiement Kubernetes (inchangé)
-      - name: 🚀 Deploy to Minikube
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: medyagh/setup-minikube@master
-
-      - name: 📡 Apply K8s manifests
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      - name: 🚢 Run Docker container
         run: |
-          kubectl apply -f kubernetes/frontend-deployment.yml
-          kubectl apply -f kubernetes/frontend-service.yml
+          docker run -d -p 3000:3000 --name conteneur-frontn touatifadwa/bookworm-frontend:latest
 
-      - name: 🧪 Verify pods
-        run: kubectl get pods -o wide
-        
-      - name: 🌐 Verify services
-        run: kubectl get svc
-        
-      - name: 📦 Verify deployment
-        run: kubectl get deployment frontend-deployment
+      
